@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* ========= BASE COLORS ========= */
+  --color-background: rgb(245, 244, 251);
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(93, 184, 255) 30%,
+    rgb(115, 203, 255) 60%
+  );
+
+  --color-card: rgb(255, 255, 255);
+  --color-card-elevated: rgb(244, 251, 255);
+
+  --color-text-primary: rgb(18, 26, 99);
+  --color-text-secondary: rgb(91, 108, 143);
+  --color-text-muted: rgb(138, 151, 181);
+
+  --color-accent: rgb(86, 108, 255);
+  --color-accent-dark: rgb(47, 67, 167);
+
+  --color-sun: rgb(253, 184, 19);
+
+  --color-border: rgb(231, 229, 244);
+
+  --shadow: rgba(17, 26, 99, 0.1);
+}
+
+.dark {
+  /* ========= BASE COLORS ========= */
+  --color-background: #0b1220; 
+  --bg-gradient: linear-gradient(
+    15deg,
+    #111b2e 30%,
+    #16253d 70%  
+  );
+
+  --color-card: #18263d;
+  --color-card-elevated: #22324f;
+
+  --color-text-primary: #f4f8ff;
+  --color-text-secondary: #a9b7d0;
+  --color-text-muted: #7183a6;
+
+  --color-accent: #7c8dff;
+  --color-accent-dark: #5ba7ff;
+
+  --color-sun: #ffd15c;
+
+  --color-border: #e7e5f4;
+
+  --shadow: rgba(0, 0, 0, 0.25);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  padding: 8px;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--bg-gradient);
+}
