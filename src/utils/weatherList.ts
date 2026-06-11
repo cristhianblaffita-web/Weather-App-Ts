@@ -3,7 +3,9 @@ import type { HourlyWeatherProps } from "../components/HourlyWeather";
 import type { DailyWeatherProps } from "../components/DailyWeather";
 
 export function getHourlyList(weather: HourlyWeather, limit: number = 7, currentTime: string) {
-    const startIndex = weather.time.findIndex(time => time === currentTime);
+    const currentHour = currentTime.slice(0, 13);
+    
+    const startIndex = weather.time.findIndex(time => time.slice(0, 13) === currentHour);
 
     return weather.time.map((itemTime, index: number): HourlyWeatherProps => {
         return {
