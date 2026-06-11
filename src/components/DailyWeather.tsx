@@ -1,7 +1,8 @@
+import { formatDate } from "../utils/formatDate";
 import { getWeatherIcon } from "../utils/weatherCodes";
 
 export type DailyWeatherProps = {
-    time?: string;
+    time: string;
     code?: number;
     temp_max?: number;
     temp_min?: number;
@@ -29,10 +30,12 @@ function DailyCard ({
 
 export default function DailyWeather ({
     weatherList,
-    isDay = true
+    isDay = true,
+    timezone
 }: {
     weatherList: DailyWeatherProps[],
-    isDay?: boolean
+    isDay?: boolean,
+    timezone: string
 }) {
     return (
         <div className="grid grid-cols-1] gap-y-2 bg-card-elevated/20 rounded-2xl border border-border/20 p-4 text-text-primary shadow-sm">
@@ -41,7 +44,7 @@ export default function DailyWeather ({
                 {weatherList.map((item, index) => (
                     <DailyCard 
                         key={item.time}
-                        time={index === 0 ? "Today" : item.time?.slice(0, 10)}
+                        time={index === 0 ? "Today" : formatDate(item.time, timezone).dateOnly}
                         code={item.code}
                         temp_max={item.temp_max}
                         temp_min={item.temp_min}
