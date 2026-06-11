@@ -3,9 +3,9 @@ import { getWeatherIcon } from "../utils/weatherCodes";
 
 export type DailyWeatherProps = {
     time: string;
-    code?: number;
-    temp_max?: number;
-    temp_min?: number;
+    code: number;
+    temp_max: number;
+    temp_min: number;
 }
 
 function DailyCard ({
@@ -46,8 +46,8 @@ export default function DailyWeather ({
                         key={item.time}
                         time={index === 0 ? "Today" : formatDate(item.time, timezone).dateOnly}
                         code={item.code}
-                        temp_max={item.temp_max}
-                        temp_min={item.temp_min}
+                        temp_max={Math.floor(item.temp_max)}
+                        temp_min={Math.floor(item.temp_min)}
                         isDay={isDay}
                     />
                 ))}

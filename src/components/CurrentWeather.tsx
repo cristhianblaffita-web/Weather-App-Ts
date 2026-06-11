@@ -6,11 +6,11 @@ type WeatherVar = {
 };
 
 type CurrentWeatherProps = {
-    temperature?: number;
-    wind?: WeatherVar;
-    humidity?: WeatherVar;
-    apparent_temp?: WeatherVar;
-    cloud_coverage?: number;
+    temperature: number;
+    wind: WeatherVar;
+    humidity: WeatherVar;
+    apparent_temp: WeatherVar;
+    cloud_coverage: number;
 };
 
 type CurrentVarCardProps = WeatherVar & {
@@ -66,7 +66,7 @@ export default function CurrentWeather({
 
             <div className="bg-card-elevated/20 grid grid-cols-[1fr_auto] md:grid-cols-2 items-center justify-center gap-x-4 rounded-2xl border border-border/40 p-4 shadow-sm">
                 <div className="current-temperature  flex items-start justify-center text-text-primary">
-                    <span className="font-bold text-9xl">{temperature}</span>
+                    <span className="font-bold text-9xl">{Math.floor(temperature)}</span>
                     <span className="text-6xl">°</span>
                 </div>
 
@@ -75,7 +75,7 @@ export default function CurrentWeather({
                         style="inner"
                         icon={Thermometer}
                         title="Feels like"
-                        value={apparent_temp.value}
+                        value={Math.floor(Number(apparent_temp.value))}
                         unit={apparent_temp.unit}
                     />
 

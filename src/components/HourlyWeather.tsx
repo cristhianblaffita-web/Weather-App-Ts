@@ -4,8 +4,8 @@ import { getWeatherIcon } from "../utils/weatherCodes";
 
 export type HourlyWeatherProps = {
     time: string;
-    code?: number;
-    temperature?: number;
+    code: number;
+    temperature: number;
 }
 
 function HourlyCard ({
@@ -41,7 +41,7 @@ export default function HourlyWeather ({
                         key={item.time}
                         time={index === 0 ? "Now" : formatDate(item.time, timezone).hourOnly}
                         code={item.code}
-                        temperature={Math.floor(item.temperature ?? 0)}
+                        temperature={Math.floor(item.temperature)}
                     />
                 ))}
             </ul>
