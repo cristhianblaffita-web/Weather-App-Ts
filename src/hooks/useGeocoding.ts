@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type Place = {
+export type Place = {
     id: number;
     name: string;
     country: string;
@@ -9,7 +9,7 @@ type Place = {
     longitude: number;
 };
 
-type GeocodingResponse = {
+export type GeocodingResponse = {
     results: Place[];
     generation_time: number;
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type CurrentWeather = {
+export type CurrentWeather = {
     time: string;
     interval: number;
     temperature_2m: number;
@@ -25,7 +25,7 @@ export type DailyWeather = {
     weather_code: number[];
 }
 
-type WeatherResponse = {
+export type WeatherResponse = {
     utc_offset_seconds: number;
     timezone: string;
     current_units: Record<any, string>;
@@ -36,12 +36,17 @@ type WeatherResponse = {
     daily: DailyWeather;
 }
 
-export function useWeather({latitude, longitude}:{latitude: number, longitude: number}) {
+export function useWeather({latitude, longitude}:{latitude: number | null, longitude: number | null}) {
     const [weather, setWeather] = useState<WeatherResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (latitude == null || longitude == null) {
+            setLoading(false);
+            return;
+        }
+
         const fetchData = async () => {
             setLoading(true);
             setError(null);
