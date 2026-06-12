@@ -1,5 +1,5 @@
 import { useDebounce } from "use-debounce";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useGeocoding, type GeocodingResponse, type Place } from "../hooks/useGeocoding";
 import { useWeather, type WeatherResponse } from "../hooks/useWeather";
 
@@ -12,6 +12,14 @@ type WeatherContextType = {
     weather: WeatherResponse | null;
     loading: boolean;
 };
+const DEFAULT_CITY: Place = {
+    id: 2950159,
+    name: 'Berlin',
+    latitude: 52.52437,
+    longitude: 13.41053,
+    country_code: 'DE',
+    country: 'Deutschland'
+};
 
 export const WeatherContext = createContext<WeatherContextType | null>(null);
 
@@ -20,17 +28,24 @@ export function WeatherProvider({
 }: {
     children: React.ReactNode;
 }) {
-    const DEFAULT_CITY: Place = {
-        id: 2950159,
-        name: 'Berlin',
-        latitude: 52.52437,
-        longitude: 13.41053,
-        country_code: 'DE',
-        country: 'Deutschland'
-    };
 
     const [search, setSearch] = useState('');
-    const [selectedCity, setSelectedCity] = useState<Place | null>(DEFAULT_CITY);
+
+    const [selectedCity, setSelectedCity] = useState<Place | null>(() => {
+        try {
+            const stored = localStorage.getItem('selectedCity');
+            
+            return stored ? JSON.parse(stored) : DEFAULT_CITY;
+        } catch(error) {
+            return DEFAULT_CITY;
+        }
+    });
+
+    useEffect(() => {
+        if (selectedCity) {
+            localStorage.setItem('selectedCity', JSON.stringify(selectedCity));
+        }
+    }, [selectedCity]);
 
     const [debouncedSearch] = useDebounce(search, 300);
 
