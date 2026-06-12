@@ -1,21 +1,11 @@
-export function formatDate(isoDate: string, timezone: string) {
-    const date = new Date(isoDate);
-
-    const dateFormatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        dateStyle: 'medium',
-    });
-
-    const timeFormatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        timeStyle: 'short',
-    });
-
-    const fullDate = `${dateFormatter.format(date)} ${timeFormatter.format(date)}`;
+export function formatDate(
+    isoDate: string
+) {
+    const [date, time] = isoDate.split("T");
 
     return {
-        fullDate,
-        dateOnly: dateFormatter.format(date),
-        hourOnly: timeFormatter.format(date),
+        fullDate: `${date} ${time?.slice(0,5)}`,
+        dateOnly: new Date(date).toDateString(),
+        hourOnly: time?.slice(0,5)
     };
 }

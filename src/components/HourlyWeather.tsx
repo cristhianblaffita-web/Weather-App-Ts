@@ -1,4 +1,3 @@
-//import { formatDate } from "../utils/formatDate";
 import { formatDate } from "../utils/formatDate";
 import { getWeatherIcon } from "../utils/weatherCodes";
 
@@ -26,11 +25,9 @@ function HourlyCard ({
 }
 
 export default function HourlyWeather ({
-    weatherList,
-    timezone
+    weatherList
 }:{
-    weatherList: HourlyWeatherProps[], 
-    timezone: string 
+    weatherList: HourlyWeatherProps[]
 }) {
     return (
         <div className="grid grid-cols-1 bg-card-elevated/20 rounded-2xl border border-border/20 p-4 shadow-sm">
@@ -39,7 +36,7 @@ export default function HourlyWeather ({
                 {weatherList.map((item:HourlyWeatherProps, index: number) => (
                     <HourlyCard
                         key={item.time}
-                        time={index === 0 ? "Now" : formatDate(item.time, timezone).hourOnly}
+                        time={index === 0 ? "Now" : formatDate(item.time).hourOnly}
                         code={item.code}
                         temperature={Math.floor(item.temperature)}
                     />

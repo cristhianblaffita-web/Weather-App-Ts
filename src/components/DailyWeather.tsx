@@ -30,12 +30,10 @@ function DailyCard ({
 
 export default function DailyWeather ({
     weatherList,
-    isDay = true,
-    timezone
+    isDay = true
 }: {
     weatherList: DailyWeatherProps[],
-    isDay?: boolean,
-    timezone: string
+    isDay?: boolean
 }) {
     return (
         <div className="grid grid-cols-1] gap-y-2 bg-card-elevated/20 rounded-2xl border border-border/20 p-4 text-text-primary shadow-sm">
@@ -44,7 +42,7 @@ export default function DailyWeather ({
                 {weatherList.map((item, index) => (
                     <DailyCard 
                         key={item.time}
-                        time={index === 0 ? "Today" : formatDate(item.time, timezone).dateOnly}
+                        time={index === 0 ? "Today" : formatDate(item.time).dateOnly}
                         code={item.code}
                         temp_max={Math.floor(item.temp_max)}
                         temp_min={Math.floor(item.temp_min)}
