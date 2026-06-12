@@ -42,7 +42,7 @@ export default function DailyWeather ({
                 {weatherList.map((item, index) => (
                     <DailyCard 
                         key={item.time}
-                        time={index === 0 ? "Today" : formatDate(item.time).dateOnly}
+                        time={index === 0 ? "Today" : formatDate(item.time).shortDate}
                         code={item.code}
                         temp_max={Math.floor(item.temp_max)}
                         temp_min={Math.floor(item.temp_min)}

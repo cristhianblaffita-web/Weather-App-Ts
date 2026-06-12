@@ -3,9 +3,23 @@ export function formatDate(
 ) {
     const [date, time] = isoDate.split("T");
 
+    const formattedDate = new Date(date);
+
+    const fullDate = new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    }).format(formattedDate);
+
+    const shortDate = new Intl.DateTimeFormat('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+    }).format(formattedDate);
+
     return {
-        fullDate: `${date} ${time?.slice(0,5)}`,
-        dateOnly: new Date(date).toDateString(),
+        fullDate,
+        shortDate,
         hourOnly: time?.slice(0,5)
     };
 }
