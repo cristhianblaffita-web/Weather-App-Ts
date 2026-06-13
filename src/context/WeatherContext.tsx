@@ -1,15 +1,21 @@
 import { useDebounce } from "use-debounce";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useGeocoding, type GeocodingResponse, type Place } from "../hooks/useGeocoding";
-import { useWeather, type WeatherResponse } from "../hooks/useWeather";
+import { useWeather, type CurrentWeatherResponse, type WeatherResponse } from "../hooks/useWeather";
 import { isDayTime } from "../utils/isDayTime";
-//import type { HourlyWeatherProps } from "../components/HourlyWeather";
 
 export type HourlyWeather = {
     time: string;
     code: number;
     temperature: number;
     isDay: boolean;
+};
+
+export type DailyWeather = {
+    time: string;
+    code: number;
+    temp_max: number;
+    temp_min: number;
 };
 
 type WeatherContextType = {
@@ -20,6 +26,8 @@ type WeatherContextType = {
     handleSelect: (city: Place) => void;
     weather: WeatherResponse | null;
     hourlyWeather: HourlyWeather[];
+    dailyWeather: DailyWeather[];
+    currentWeather: CurrentWeatherResponse | null;
     loading: boolean;
     error: string | null;
 };
@@ -77,6 +85,8 @@ export function WeatherProvider({
 
     const { weather, loading, error } = useWeather(coords);
 
+    const currentWeather = weather ? weather.current : null;
+
     const hourlyWeather = useMemo(() => {
         if (!weather) return [];
 
@@ -92,6 +102,18 @@ export function WeatherProvider({
         })).slice(startIndex, startIndex + 7);
     }, [weather]);
 
+
+    const dailyWeather = useMemo(() => {
+        if (!weather) return [];
+
+        return weather.daily.time.map((time, index) => ({
+            time,
+            code: weather.daily.weather_code[index],
+            temp_max: weather.daily.temperature_2m_max[index],
+            temp_min: weather.daily.temperature_2m_min[index],
+        })).filter((_, index: number) => index < 7)
+    }, [weather]);
+
     return (
         <WeatherContext.Provider
             value={{
@@ -101,7 +123,9 @@ export function WeatherProvider({
                 selectedCity,
                 handleSelect,
                 weather,
+                currentWeather,
                 hourlyWeather,
+                dailyWeather,
                 loading,
                 error
             }}

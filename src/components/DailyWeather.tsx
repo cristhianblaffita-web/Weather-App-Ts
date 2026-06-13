@@ -1,21 +1,14 @@
 import { formatDate } from "../utils/formatDate";
 import { getWeatherIcon } from "../utils/weatherCodes";
-
-export type DailyWeatherProps = {
-    time: string;
-    code: number;
-    temp_max: number;
-    temp_min: number;
-}
+import { type DailyWeather } from "../context/WeatherContext";
 
 function DailyCard ({
     time = '00:00',
     code = 0,
     temp_max = 0,
-    temp_min = 0,
-    isDay = true
-}: DailyWeatherProps & { isDay?: boolean }) {
-    const Icon = getWeatherIcon(code, !!isDay);
+    temp_min = 0
+}: DailyWeather) {
+    const Icon = getWeatherIcon(code, true);
     return (
         <div className="grid grid-cols-3 p-2">
             <span className="text-sm">{time}</span>
@@ -29,11 +22,9 @@ function DailyCard ({
 }
 
 export default function DailyWeather ({
-    weatherList,
-    isDay = true
+    weatherList
 }: {
-    weatherList: DailyWeatherProps[],
-    isDay?: boolean
+    weatherList: DailyWeather[]
 }) {
     return (
         <div className="grid grid-cols-1] gap-y-2 bg-card-elevated/20 rounded-2xl border border-border/20 p-4 text-text-primary shadow-sm">
@@ -46,7 +37,6 @@ export default function DailyWeather ({
                         code={item.code}
                         temp_max={Math.floor(item.temp_max)}
                         temp_min={Math.floor(item.temp_min)}
-                        isDay={isDay}
                     />
                 ))}
             </ul>
