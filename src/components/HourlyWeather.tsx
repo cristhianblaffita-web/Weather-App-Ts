@@ -1,18 +1,13 @@
 import { formatDate } from "../utils/formatDate";
 import { getWeatherIcon } from "../utils/weatherCodes";
-
-export type HourlyWeatherProps = {
-    time: string;
-    code: number;
-    temperature: number;
-}
+import { type HourlyWeather } from "../context/WeatherContext";
 
 function HourlyCard ({
     time = '00:00',
     code = 0,
     temperature = 0,
     isDay = true
-}: HourlyWeatherProps & { isDay?: boolean}) {
+}: HourlyWeather) {
     const Icon = getWeatherIcon(code, !!isDay);
 
     return (
@@ -27,18 +22,19 @@ function HourlyCard ({
 export default function HourlyWeather ({
     weatherList
 }:{
-    weatherList: HourlyWeatherProps[]
+    weatherList: HourlyWeather[]
 }) {
     return (
         <div className="grid grid-cols-1 bg-card-elevated/20 rounded-2xl border border-border/20 p-4 shadow-sm">
             <span className="font-normal text-text-primary m-2">Hourly weather</span>
             <ul className="grid grid-cols-[repeat(auto-fit,minmax(96px,1fr))] gap-2">
-                {weatherList.map((item:HourlyWeatherProps, index: number) => (
+                {weatherList.map((item, index: number) => (
                     <HourlyCard
                         key={item.time}
                         time={index === 0 ? "Now" : formatDate(item.time).hourOnly}
                         code={item.code}
                         temperature={Math.floor(item.temperature)}
+                        isDay={item.isDay}
                     />
                 ))}
             </ul>

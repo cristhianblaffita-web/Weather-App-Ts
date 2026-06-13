@@ -20,9 +20,11 @@ export type HourlyWeather = {
 
 export type DailyWeather = {
     time: string[];
+    weather_code: number[];
     temperature_2m_max: number[];
     temperature_2m_min: number[];
-    weather_code: number[];
+    sunrise: string[];
+    sunset: string[]
 }
 
 export type WeatherResponse = {
@@ -52,7 +54,7 @@ export function useWeather({latitude, longitude}:{latitude: number | null, longi
             setError(null);
 
             try {
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,cloud_cover,wind_speed_10m&timezone=auto`);
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,cloud_cover,wind_speed_10m&timezone=auto`);
 
                 const data: WeatherResponse = await response.json();
 

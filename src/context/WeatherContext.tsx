@@ -2,6 +2,15 @@ import { useDebounce } from "use-debounce";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useGeocoding, type GeocodingResponse, type Place } from "../hooks/useGeocoding";
 import { useWeather, type WeatherResponse } from "../hooks/useWeather";
+import { isDayTime } from "../utils/isDayTime";
+//import type { HourlyWeatherProps } from "../components/HourlyWeather";
+
+export type HourlyWeather = {
+    time: string;
+    code: number;
+    temperature: number;
+    isDay: boolean;
+};
 
 type WeatherContextType = {
     search: string;
@@ -10,9 +19,11 @@ type WeatherContextType = {
     selectedCity: Place | null;
     handleSelect: (city: Place) => void;
     weather: WeatherResponse | null;
+    hourlyWeather: HourlyWeather[];
     loading: boolean;
     error: string | null;
 };
+
 const DEFAULT_CITY: Place = {
     id: 2950159,
     name: 'Berlin',
@@ -66,6 +77,21 @@ export function WeatherProvider({
 
     const { weather, loading, error } = useWeather(coords);
 
+    const hourlyWeather = useMemo(() => {
+        if (!weather) return [];
+
+        const currentHour = weather.current.time.slice(0, 13);
+    
+        const startIndex = weather.hourly.time.findIndex(time => time.slice(0, 13) === currentHour);
+
+        return weather.hourly.time.map((time, index) => ({
+            time,
+            code: weather.hourly.weather_code[index],
+            temperature: weather.hourly.temperature_2m[index],
+            isDay: isDayTime(time, weather.daily.sunrise, weather.daily.sunset)
+        })).slice(startIndex, startIndex + 7);
+    }, [weather]);
+
     return (
         <WeatherContext.Provider
             value={{
@@ -75,6 +101,7 @@ export function WeatherProvider({
                 selectedCity,
                 handleSelect,
                 weather,
+                hourlyWeather,
                 loading,
                 error
             }}
