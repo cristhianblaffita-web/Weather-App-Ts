@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export type CurrentWeather = {
+export type CurrentWeatherResponse = {
     time: string;
     interval: number;
     temperature_2m: number;
@@ -12,13 +12,13 @@ export type CurrentWeather = {
     wind_speed_10m: number;
 };
 
-export type HourlyWeather = {
+export type HourlyWeatherResponse = {
     time: string[];
     temperature_2m: number[];
     weather_code: number[];
 };
 
-export type DailyWeather = {
+export type DailyWeatherResponse = {
     time: string[];
     weather_code: number[];
     temperature_2m_max: number[];
@@ -31,11 +31,11 @@ export type WeatherResponse = {
     utc_offset_seconds: number;
     timezone: string;
     current_units: Record<any, string>;
-    current: CurrentWeather;
+    current: CurrentWeatherResponse;
     hourly_units: Record<any, string>;
-    hourly: HourlyWeather;
+    hourly: HourlyWeatherResponse;
     daily_units: Record<any, string>;
-    daily: DailyWeather;
+    daily: DailyWeatherResponse;
 }
 
 export function useWeather({latitude, longitude}:{latitude: number | null, longitude: number | null}) {
