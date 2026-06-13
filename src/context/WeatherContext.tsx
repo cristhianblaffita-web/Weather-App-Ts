@@ -11,6 +11,7 @@ type WeatherContextType = {
     handleSelect: (city: Place) => void;
     weather: WeatherResponse | null;
     loading: boolean;
+    error: string | null;
 };
 const DEFAULT_CITY: Place = {
     id: 2950159,
@@ -63,7 +64,7 @@ export function WeatherProvider({
         }), [selectedCity]
     );
 
-    const { weather, loading } = useWeather(coords);
+    const { weather, loading, error } = useWeather(coords);
 
     return (
         <WeatherContext.Provider
@@ -74,7 +75,8 @@ export function WeatherProvider({
                 selectedCity,
                 handleSelect,
                 weather,
-                loading
+                loading,
+                error
             }}
         >
             {children}
