@@ -1,16 +1,9 @@
 import { useState } from "react";
 import { useWeatherContext } from "../context/WeatherContext";
-import type { Place } from "../hooks/useGeocoding";
 import { getWeatherIcon } from "../utils/weatherCodes";
 import { MapIcon, Search } from "lucide-react";
-
-type WeatherNavProps = {
-    city?: string;
-    code?: number;
-    date?: string;
-    hour?: string;
-    isDay?: boolean;
-}
+import type { Place } from "../types/api";
+import type { WeatherNavProps } from "../types/weather";
 
 export function CityResults({results, handleSelect}:{results: Place[]; handleSelect: (city: Place) => void}) {
     if (!results || !results.length) return null;

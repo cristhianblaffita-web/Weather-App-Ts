@@ -1,17 +1,6 @@
 import { Cloud, Droplet, Thermometer, Wind, type LucideIcon } from "lucide-react";
 import { getCloudCoverage } from "../utils/cloudCoverage";
-type WeatherVar = {
-    value: number | string,
-    unit?: string,
-};
-
-type CurrentWeatherProps = {
-    temperature: number;
-    wind: WeatherVar;
-    humidity: WeatherVar;
-    apparent_temp: WeatherVar;
-    cloud_coverage: number;
-};
+import type { CurrentWeather, WeatherVar } from "../types/weather";
 
 type CurrentVarCardProps = WeatherVar & {
     style: 'inner' | 'outer';
@@ -60,7 +49,7 @@ export default function CurrentWeather({
     humidity = {value: 0, unit: '%'},
     apparent_temp = {value: 0, unit: '°'},
     cloud_coverage = 0
-}: CurrentWeatherProps) {
+}: CurrentWeather) {
     return (
         <div className="grid grid-cols-1 gap-y-2 text-text-primary">
 

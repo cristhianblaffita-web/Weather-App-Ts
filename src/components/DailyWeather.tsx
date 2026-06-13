@@ -1,6 +1,6 @@
 import { formatDate } from "../utils/formatDate";
 import { getWeatherIcon } from "../utils/weatherCodes";
-import { type DailyWeather } from "../context/WeatherContext";
+import type { DailyWeather } from "../types/weather";
 
 function DailyCard ({
     time = '00:00',

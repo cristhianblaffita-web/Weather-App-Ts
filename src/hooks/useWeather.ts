@@ -1,42 +1,5 @@
 import { useEffect, useState } from "react";
-
-export type CurrentWeatherResponse = {
-    time: string;
-    interval: number;
-    temperature_2m: number;
-    relative_humidity_2m: number;
-    apparent_temperature: number;
-    is_day: boolean;
-    weather_code: number;
-    cloud_cover: number;
-    wind_speed_10m: number;
-};
-
-export type HourlyWeatherResponse = {
-    time: string[];
-    temperature_2m: number[];
-    weather_code: number[];
-};
-
-export type DailyWeatherResponse = {
-    time: string[];
-    weather_code: number[];
-    temperature_2m_max: number[];
-    temperature_2m_min: number[];
-    sunrise: string[];
-    sunset: string[]
-}
-
-export type WeatherResponse = {
-    utc_offset_seconds: number;
-    timezone: string;
-    current_units: Record<any, string>;
-    current: CurrentWeatherResponse;
-    hourly_units: Record<any, string>;
-    hourly: HourlyWeatherResponse;
-    daily_units: Record<any, string>;
-    daily: DailyWeatherResponse;
-}
+import type { WeatherResponse } from "../types/api";
 
 export function useWeather({latitude, longitude}:{latitude: number | null, longitude: number | null}) {
     const [weather, setWeather] = useState<WeatherResponse | null>(null);

@@ -1,18 +1,5 @@
 import { useEffect, useState } from "react";
-
-export type Place = {
-    id: number;
-    name: string;
-    country: string;
-    country_code: string;
-    latitude: number;
-    longitude: number;
-};
-
-export type GeocodingResponse = {
-    results: Place[];
-    generation_time: number;
-};
+import type { GeocodingResponse } from '../types/api'
 
 
 export function useGeocoding(city: string) {

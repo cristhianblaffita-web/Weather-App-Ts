@@ -1,22 +1,11 @@
 import { useDebounce } from "use-debounce";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useGeocoding, type GeocodingResponse, type Place } from "../hooks/useGeocoding";
-import { useWeather, type CurrentWeatherResponse, type WeatherResponse } from "../hooks/useWeather";
+import { useGeocoding } from "../hooks/useGeocoding";
+import { useWeather } from "../hooks/useWeather";
 import { isDayTime } from "../utils/isDayTime";
-
-export type HourlyWeather = {
-    time: string;
-    code: number;
-    temperature: number;
-    isDay: boolean;
-};
-
-export type DailyWeather = {
-    time: string;
-    code: number;
-    temp_max: number;
-    temp_min: number;
-};
+import type { HourlyWeather, DailyWeather } from "../types/weather";
+import type { CurrentWeatherResponse, WeatherResponse } from "../types/api";
+import type { Place, GeocodingResponse } from "../types/api";
 
 type WeatherContextType = {
     search: string;
