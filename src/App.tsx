@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { formatDate } from "./utils/formatDate";
+import { useWeatherContext } from "./context/WeatherContext";
+import { useWeatherTheme } from "./hooks/useWeatherTheme";
+import { WeatherError, WeatherLoading } from "./components/WeatherStatus";
 import CurrentWeather from "./components/CurrentWeather";
 import DailyWeather from "./components/DailyWeather";
 import HourlyWeather from "./components/HourlyWeather";
 import WeatherNav from "./components/WeatherNav";
-import { useWeatherContext } from "./context/WeatherContext";
-import { formatDate } from "./utils/formatDate";
-import { WeatherError, WeatherLoading } from "./components/WeatherStatus";
 
 export default function App() {
   const {
@@ -18,14 +18,9 @@ export default function App() {
     error
   } = useWeatherContext();
 
-  useEffect(() => {
-    if (!currentWeather?.is_day) {
-      document.getElementById('root')?.classList.add('dark');
-    } else {
-      document.getElementById('root')?.classList.remove('dark');
-    }
-  }, [weather]);
+  const isDay = currentWeather?.is_day;
 
+  useWeatherTheme(isDay);
 
   const date = currentWeather ? formatDate(currentWeather.time) : null;
 
