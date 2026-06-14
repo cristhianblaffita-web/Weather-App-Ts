@@ -45,9 +45,9 @@ function WeatherVarCard({
 
 export default function CurrentWeather({
     temperature = 0,
-    wind = {value: 0, unit: 'km/h'},
-    humidity = {value: 0, unit: '%'},
-    apparent_temp = {value: 0, unit: '°'},
+    wind = { value: 0, unit: 'km/h' },
+    humidity = { value: 0, unit: '%' },
+    apparent_temp = { value: 0, unit: '°' },
     cloud_coverage = 0
 }: CurrentWeather) {
     return (
@@ -80,20 +80,19 @@ export default function CurrentWeather({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <WeatherVarCard
-                        style="outer"
-                        icon={Wind}
-                        title='Wind'
-                        value={wind.value}
-                        unit={wind.unit}
-                    />
-
-
                 <WeatherVarCard
                     style="outer"
                     icon={Cloud}
                     title="Cloud coverage"
                     value={getCloudCoverage(cloud_coverage)}
+                />
+
+                <WeatherVarCard
+                    style="outer"
+                    icon={Wind}
+                    title='Wind'
+                    value={wind.value}
+                    unit={wind.unit}
                 />
             </div>
         </div>
