@@ -10,9 +10,9 @@ function DailyCard ({
 }: DailyWeather) {
     const Icon = getWeatherIcon(code, true);
     return (
-        <div className="grid grid-cols-3 p-2">
+        <div title={Icon.label} className="grid grid-cols-3 p-2">
             <span className="text-sm">{time}</span>
-            <Icon />
+            <Icon.icon />
             <div className="grid grid-cols-2">
                 <span>{temp_max}°</span>
                 <span className="text-accent">{temp_min}°</span>

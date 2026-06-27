@@ -42,8 +42,11 @@ export default function WeatherNav({
 
     return (
         <div className="weather-nav bg-card-elevated/20 grid grid-cols-[auto_1fr] grid-rows-2 items-center gap-y-4 gap-x-4 rounded-2xl border border-border/40 p-4 shadow-sm">
-            <div className="bg-card/50 border border-border/30 rounded-2xl p-2">
-                <Icon className="text-text-primary" />
+            <div 
+                title={Icon.label} 
+                className="bg-card/50 border border-border/30 rounded-2xl p-2"
+            >
+                <Icon.icon className="text-text-primary" />
             </div>
             <div className="city-info grid grid-cols-1">
                 <span className="text-2xl text-text-primary font-bold">{city}</span>

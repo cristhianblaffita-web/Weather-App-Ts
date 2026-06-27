@@ -1,7 +1,6 @@
 import {
     Sun,
     CloudSun,
-    Cloud,
     Cloudy,
     CloudFog,
     CloudDrizzle,
@@ -16,49 +15,44 @@ import {
   
 
 type WeatherData = {
-    label: string;
-  icon?: LucideIcon;
-  iconDay?: LucideIcon;
+  label: string;
+  icon: LucideIcon;
   iconNight?: LucideIcon;
 };
 
 export const weatherCodes: Record<number, WeatherData> = {
     0: {
       label: 'Clear sky',
-      iconDay: Sun,
+      icon: Sun,
       iconNight: Moon,
     },
     1: {
       label: 'Mainly clear',
-      iconDay: CloudSun,
+      icon: CloudSun,
       iconNight: CloudMoon,
     },
     2: {
       label: 'Partly cloudy',
-      iconDay: CloudSun,
+      icon: CloudSun,
       iconNight: CloudMoon,
     },
     3: {
       label: 'Overcast',
-      iconDay: Cloudy,
-      iconNight: Cloudy,
+      icon: Cloudy,
     },
   
     45: {
       label: 'Fog',
-      iconDay: CloudFog,
-      iconNight: CloudFog,
+      icon: CloudFog,
     },
     48: {
       label: 'Depositing rime fog',
-      iconDay: CloudFog,
-      iconNight: CloudFog,
+      icon: CloudFog,
     },
   
     51: {
       label: 'Light drizzle',
-      iconDay: CloudDrizzle,
-      iconNight: CloudDrizzle,
+      icon: CloudDrizzle,
     },
     53: {
       label: 'Moderate drizzle',
@@ -79,8 +73,7 @@ export const weatherCodes: Record<number, WeatherData> = {
   
     61: {
       label: 'Slight rain',
-      iconDay: CloudRain,
-      iconNight: CloudRain,
+      icon: CloudRain,
     },
     63: {
       label: 'Moderate rain',
@@ -101,8 +94,7 @@ export const weatherCodes: Record<number, WeatherData> = {
   
     71: {
       label: 'Slight snow fall',
-      iconDay: CloudSnow,
-      iconNight: CloudSnow,
+      icon: CloudSnow,
     },
     73: {
       label: 'Moderate snow fall',
@@ -119,8 +111,7 @@ export const weatherCodes: Record<number, WeatherData> = {
   
     80: {
       label: 'Slight rain showers',
-      iconDay: CloudRain,
-      iconNight: CloudRain,
+      icon: CloudRain,
     },
     81: {
       label: 'Moderate rain showers',
@@ -133,8 +124,7 @@ export const weatherCodes: Record<number, WeatherData> = {
   
     85: {
       label: 'Slight snow showers',
-      iconDay: CloudSnow,
-      iconNight: CloudSnow,
+      icon: CloudSnow,
     },
     86: {
       label: 'Heavy snow showers',
@@ -143,8 +133,7 @@ export const weatherCodes: Record<number, WeatherData> = {
   
     95: {
       label: 'Thunderstorm',
-      iconDay: CloudLightning,
-      iconNight: CloudLightning,
+      icon: CloudLightning,
     },
     96: {
       label: 'Thunderstorm with slight hail',
@@ -152,14 +141,24 @@ export const weatherCodes: Record<number, WeatherData> = {
     },
     99: {
       label: 'Thunderstorm with heavy hail',
-      iconDay: CloudHail,
-      iconNight: CloudHail,
+      icon: CloudHail,
     },
   };
 
-export function getWeatherIcon(code: number, isDay: boolean): LucideIcon {
+export function getWeatherIcon(code: number, isDay: boolean) {
   const data = weatherCodes[code];
-  if (!data) return Cloud;
-  if (isDay) return data.iconDay ?? data.icon ?? Cloud;
-  return data.iconNight ?? data.icon ?? Moon;
+  
+  if (!data) return weatherCodes[3]
+  
+  if (isDay) {
+    return {
+      icon: data.icon ?? data.iconNight, 
+      label: data.label
+    }
+  }
+
+  return {
+    icon: data.iconNight ?? data.icon,
+    label: data.label
+  }
 }

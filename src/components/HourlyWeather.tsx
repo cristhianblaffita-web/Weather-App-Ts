@@ -11,9 +11,9 @@ function HourlyCard ({
     const Icon = getWeatherIcon(code, !!isDay);
 
     return (
-        <div className="min-w-24 w-24 bg-card/40 border border-border/20 rounded-2xl flex flex-col flex-nowrap p-4 items-center justify-center gap-4 text-text-primary">
+        <div title={Icon.label} className="min-w-24 w-24 bg-card/40 border border-border/20 rounded-2xl flex flex-col flex-nowrap p-4 items-center justify-center gap-4 text-text-primary">
             <span className="text-sm text-text-secondary flex text-nowrap">{time}</span>
-            <Icon />
+            <Icon.icon />
             <span className="text-md font-medium">{temperature}°</span>
         </div>
     )
